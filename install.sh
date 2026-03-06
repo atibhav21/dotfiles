@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 mkdir -p "$ZSH_CUSTOM/plugins"
 
@@ -30,6 +31,14 @@ fi
 # Ensure syntax highlighting is last (important)
 sed -i 's/zsh-syntax-highlighting//g' "$HOME/.zshrc"
 sed -i 's/^plugins=(\(.*\))/plugins=(\1 zsh-syntax-highlighting)/' "$HOME/.zshrc"
+
+# Install aliases
+cp "$DOTFILES_DIR/aliases.zsh" "$HOME/.zsh_aliases"
+if ! grep -q "\.zsh_aliases" "$HOME/.zshrc"; then
+  echo "" >> "$HOME/.zshrc"
+  echo "# Dotfiles aliases" >> "$HOME/.zshrc"
+  echo "[[ -f ~/.zsh_aliases ]] && . ~/.zsh_aliases" >> "$HOME/.zshrc"
+fi
 
 # Ensure Ona secrets sourcing exists
 if ! grep -q "ona-secrets.sh" "$HOME/.zshrc"; then
