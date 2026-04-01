@@ -45,6 +45,9 @@ if ! grep -q "ona-secrets.sh" "$HOME/.zshrc"; then
   echo ". /etc/profile.d/ona-secrets.sh" >> "$HOME/.zshrc"
 fi
 
+# Install LangSmith CLI
+bash "$DOTFILES_DIR/setup_langsmith.sh"
+
 # Make new terminals use zsh instead of bash
 if ! grep -q "Auto-switch to zsh" "$HOME/.bashrc" 2>/dev/null; then
   cat >> "$HOME/.bashrc" <<'BEOF'
