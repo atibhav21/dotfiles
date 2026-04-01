@@ -2,17 +2,7 @@
 set -euo pipefail
 
 install_langsmith() {
-    if command -v uv >/dev/null 2>&1; then
-        echo "Installing LangSmith CLI with uv..."
-        if uv tool install --upgrade "langsmith[cli]"; then
-            echo "✅ LangSmith CLI installed successfully"
-            return 0
-        fi
-    else
-        echo "Skipping LangSmith CLI: uv not found. Install from https://docs.astral.sh/uv/"
-    fi
-
-
+   curl -sSL https://raw.githubusercontent.com/langchain-ai/langsmith-cli/main/scripts/install.sh | sh 
 }
 
 setup_langsmith_mcp() {
