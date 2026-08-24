@@ -40,6 +40,13 @@ if ! grep -q "\.zsh_aliases" "$HOME/.zshrc"; then
   echo "[[ -f ~/.zsh_aliases ]] && . ~/.zsh_aliases" >> "$HOME/.zshrc"
 fi
 
+# Install Codex config
+mkdir -p "$HOME/.codex"
+if [ -f "$HOME/.codex/config.toml" ] && ! cmp -s "$DOTFILES_DIR/codex_config.toml" "$HOME/.codex/config.toml"; then
+  cp "$HOME/.codex/config.toml" "$HOME/.codex/config.toml.bak"
+fi
+cp "$DOTFILES_DIR/codex_config.toml" "$HOME/.codex/config.toml"
+
 # Ensure Ona secrets sourcing exists
 if ! grep -q "ona-secrets.sh" "$HOME/.zshrc"; then
   echo ". /etc/profile.d/ona-secrets.sh" >> "$HOME/.zshrc"
